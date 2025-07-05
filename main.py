@@ -7,6 +7,7 @@ from pydantic import BaseModel
 class Body(BaseModel):
     url: str = ""
 
+
 app = FastAPI()
 
 
@@ -15,12 +16,12 @@ def load(body: Body):
     data = {"image": "", "title": "", "description": ""}
 
     headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.5",
-        }
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+    }
 
-    res = requests.get(body.url,headers=headers)
+    res = requests.get(body.url, headers=headers)
     soup = BeautifulSoup(res.text, "html.parser")
 
     og_image = soup.find("meta", property="og:image")
